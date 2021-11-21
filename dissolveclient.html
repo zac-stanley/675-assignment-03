@@ -49,11 +49,16 @@
 
         // add UC Berkeley regions to map with jQuery
         $.getJSON('data/regions-ucb.json', function (data) {
+                // convert regions to geoJson and add to map
                 var ucbRegions = L.geoJson(data).addTo(map);
+                
+                // dissolve regions and style to show dissolved areas
                 var regionsDissolved = turf.dissolve(data);
                 L.geoJson(regionsDissolved, {
                     style: function (feature, layer) {
                         return {
+                            fillColor: "white",
+                            fillOpacity: 0,
                             color: "green",
                             weight: 3
                         };
