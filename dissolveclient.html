@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Module 03 Turf.js</title>
+    <link
+      href="https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <script src="https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/topojson@3"></script>
+    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+
+    <script>
+      var map = L.map("map", {
+        zoomSnap: 0.1,
+        center: [37.8719, -122.2585],
+        zoom: 16
+      });
+
+    // add CARTO voyager tiles with no labels
+    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager_nolabels/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
+    }).addTo(map);
+
+    // add UC Berkeley regions to map with jQuery
+    $.getJSON('data/regions-ucb.json', function(data) {
+        // refresher question - is this 'data' call an anonymous function passing to an anonymous function above?
+        var ucbRegions = L.geoJson(data).addTo(map);
+
+        // // dissolve region polygons
+        var features = turf.featureCollection(turf.polygon(ucbRegions.toGeoJSON()), {combine: 'yes'});
+        console.log(features)
+
+        var regionsDissolved = turf.dissolve(features, {propertyName: 'combine'})
+        console.log(regionsDissolved)
+
+        L.geoJson(regionsDissolved, {
+
+             // style layers so the buffer is visible
+          style: function (feature, layer) {
+                    return {
+                        color: "green",
+                        weight: 3
+                    };                           
+                }               
+        }).addTo(map);
+
+
+    })
+
+    
+   </script>
+   </body>
+ </html>
+
+ 

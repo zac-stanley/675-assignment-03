@@ -54,14 +54,17 @@
         }
         ).addTo(map);
 
-
+      // add belgium to map with jQuery
       $.getJSON('data/belgium.json', function(data) {
         var belgium = L.geoJson(data).addTo(map);
 
+        // buffer belgium polygon
         buffer = turf.buffer(belgium.toGeoJSON(), 15, {units: 'miles'})
 
         // use the buffer GeoJSON to create a leaflet layer
         L.geoJson(buffer, {
+          
+          // style layers so the buffer is visible
           style: function (feature, layer) {
                     return {
                         color: "red",
