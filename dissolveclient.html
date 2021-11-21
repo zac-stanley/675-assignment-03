@@ -47,32 +47,19 @@
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy;<a href="https://carto.com/attribution">CARTO</a>'
     }).addTo(map);
 
-    // add UC Berkeley regions to map with jQuery
-    $.getJSON('data/regions-ucb.json', function(data) {
-        // refresher question - is this 'data' call an anonymous function passing to an anonymous function above?
-        var ucbRegions = L.geoJson(data).addTo(map);
-
-        // // dissolve region polygons
-        var features = turf.featureCollection(turf.polygon(ucbRegions.toGeoJSON()), {combine: 'yes'});
-        console.log(features)
-
-        var regionsDissolved = turf.dissolve(features, {propertyName: 'combine'})
-        console.log(regionsDissolved)
-
-        L.geoJson(regionsDissolved, {
-
-             // style layers so the buffer is visible
-          style: function (feature, layer) {
-                    return {
-                        color: "green",
-                        weight: 3
-                    };                           
-                }               
-        }).addTo(map);
-
-
-    })
-
+        // add UC Berkeley regions to map with jQuery
+        $.getJSON('data/regions-ucb.json', function (data) {
+                var ucbRegions = L.geoJson(data).addTo(map);
+                var regionsDissolved = turf.dissolve(data);
+                L.geoJson(regionsDissolved, {
+                    style: function (feature, layer) {
+                        return {
+                            color: "green",
+                            weight: 3
+                        };
+                    }
+                }).addTo(map);
+            });
     
    </script>
    </body>
