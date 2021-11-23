@@ -1,0 +1,25 @@
+{
+  "name": "675-assignment-03",
+  "version": "1.0.0",
+  "description": "This example smooths a complex polygon.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zac-stanley/675-assignment-03.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zac-stanley/675-assignment-03/issues"
+  },
+  "homepage": "https://github.com/zac-stanley/675-assignment-03#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "csvtojson": "^2.0.10",
+    "geojson-validation": "^1.0.2",
+    "turf": "^3.0.14"
+  }
+}
