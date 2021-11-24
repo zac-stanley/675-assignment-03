@@ -52,7 +52,7 @@
                 // convert regions to geoJson and add to map
                 var ucbRegions = L.geoJson(data).addTo(map);
                 
-                // dissolve regions and style to show dissolved areas
+                // dissolve regions and style to highlight dissolved areas 
                 var regionsDissolved = turf.dissolve(data);
                 L.geoJson(regionsDissolved, {
                     style: function (feature, layer) {
