@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/zac-stanley/675-assignment-03#readme",
   "dependencies": {
+    "@turf/turf": "^6.5.0",
     "chalk": "^4.1.2",
     "csvtojson": "^2.0.10",
-    "geojson-validation": "^1.0.2",
-    "turf": "^3.0.14"
+    "geojson-validation": "^1.0.2"
   }
 }
